@@ -29,7 +29,8 @@ public class LexicalHandler extends XMLHandler {
 			
 			mAnnotations=new  ArrayList<Annotation>();
 			mName=attributes.getValue(LexicalAttribute.ITEM.name().toLowerCase());
-			mLexelID=attributes.getValue(LexicalAttribute.ID.name().toLowerCase());
+			mLexelID=mName+"."+attributes.getValue(LexicalAttribute.POS.name().toLowerCase());
+
 			break;
 			
 		case INSTANCE:
@@ -70,7 +71,7 @@ public class LexicalHandler extends XMLHandler {
 				throw new  SAXException("Missed tag <HEAD> in sentence "+mInstanceID);
 			
 			annotation=new Annotation(mInstanceID,mSentence.trim());
-			annotation.addLexel(new Lexel(mLexelID,mName));
+			annotation.addLexel(new Lexel(mInstanceID,mLexelID));
 			mAnnotations.add(annotation);
 			break;
 			
