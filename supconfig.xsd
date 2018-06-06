@@ -267,6 +267,7 @@
 			<xs:simpleContent>
 				<xs:extension base="senseInventoryType">
 					<xs:attribute name="dict" />
+					<xs:attribute name="lang" />
 				</xs:extension>
 			</xs:simpleContent>
 		</xs:complexType>

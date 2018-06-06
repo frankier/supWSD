@@ -17,10 +17,12 @@ import it.uniroma1.lcl.jlt.util.Language;
 class BabelNetInventory implements SenseInventory {
 
 	private final BabelNet mBabelNet;
-
-	BabelNetInventory() throws IOException {
+	private final Language mLang;
+	
+	BabelNetInventory(String ISO) throws IOException {
 
 		mBabelNet = BabelNet.getInstance();
+		mLang=Language.fromISO(ISO==null?"EN":ISO);
 	}
 
 	@Override
@@ -30,7 +32,7 @@ class BabelNetInventory implements SenseInventory {
 		List<BabelSynset> synsets;
 
 		try {
-			synsets = mBabelNet.getSynsets(lemma, Language.EN,getPOS(pos));
+			synsets = mBabelNet.getSynsets(lemma, mLang,getPOS(pos));
 			Collections.sort(synsets, new BabelSynsetComparator(lemma));
 
 			if (!synsets.isEmpty())

@@ -22,7 +22,7 @@ public class SenseInventoryFactory {
 		return instance;
 	}
 
-	public SenseInventory getSenseInventory(SenseInventoryType senseInventoryType,String dict) throws IOException {
+	public SenseInventory getSenseInventory(SenseInventoryType senseInventoryType,String dict,String ISO) throws IOException {
 
 		SenseInventory senseInventory = null;
 
@@ -32,7 +32,7 @@ public class SenseInventoryFactory {
 
 			case BABELNET:
 
-				senseInventory = new BabelNetInventory();
+				senseInventory = new BabelNetInventory(ISO);
 				break;
 
 			default:

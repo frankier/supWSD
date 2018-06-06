@@ -43,6 +43,7 @@ public class Config {
 	private String mWorkingDir;
 	private String mMNS;
 	private String mDict;
+	private String mLang;	
 	private final List<FeatureExtractor> mFeatureExtractors;
 
 	private Config() {
@@ -171,6 +172,11 @@ public class Config {
 		return this.mDict;
 	}
 
+	public String getLang() {
+
+		return this.mLang;
+	}
+	
 	void setWriterType(WriterType writerType) {
 
 		this.mWriterType = writerType;
@@ -227,10 +233,11 @@ public class Config {
 		this.mDParserModel = model;
 	}
 
-	void setSenseInventory(SenseInventoryType senseInventoryType, String dict) {
+	void setSenseInventory(SenseInventoryType senseInventoryType, String dict,String lang) {
 
 		this.mSenseInventory = senseInventoryType;
 		this.mDict = dict;
+		this.mLang=lang;
 	}
 
 	void setWorkingDir(String workingDir) {

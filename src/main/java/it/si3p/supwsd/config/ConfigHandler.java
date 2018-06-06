@@ -185,7 +185,8 @@ public class ConfigHandler extends XMLHandler {
 		case SENSE_INVENTORY:
 
 			this.mConfig.setSenseInventory(getValue(SenseInventoryType.class),
-					(String) getParam(String.class, ConfigAttribute.DICT, false));
+					(String) getParam(String.class, ConfigAttribute.DICT, false),
+					(String) getParam(String.class, ConfigAttribute.LANG, false));
 			break;
 
 		default:

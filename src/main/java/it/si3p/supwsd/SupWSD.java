@@ -118,7 +118,7 @@ public class SupWSD {
 		classifier = ClassifierFactory.getInstance().getClassifier(config.getClassifierType());
 		writer = WriterFactory.getInstance().getWriter(config.getWriterType());
 		senseInventory = SenseInventoryFactory.getInstance().getSenseInventory(config.getSenseInventory(),
-				config.getDict());
+				config.getDict(),config.getLang());
 
 		tester = new Tester(parser, mns, preprocessor, config.getFeatureExtractors(), classifier, writer, senses,
 				senseInventory);
