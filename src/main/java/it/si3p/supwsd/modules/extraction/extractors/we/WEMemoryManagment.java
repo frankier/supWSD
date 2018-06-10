@@ -33,11 +33,6 @@ public class WEMemoryManagment {
 	}
 
 	public void load(String vocabFile, float cacheSize) throws IOException {
-		
-		this.load(vocabFile, cacheSize, false);
-	}
-
-	public void load(String vocabFile, float cacheSize, boolean requireUNK) throws IOException {
 
 		int size = (int) (cacheSize * createVirtualMem(vocabFile, cacheSize));
 
@@ -50,7 +45,7 @@ public class WEMemoryManagment {
 		this.mCache = mCacheManager.getCache("preConfigured", String.class, double[].class);
 		this.UNK = mWEVirtualMemory.swap(mCache, size);
 
-		if (this.UNK == null && requireUNK)
+		if (this.UNK == null)
 			throw new IOException("Vector <UNK> not found!");
 	}
 
