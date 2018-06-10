@@ -193,9 +193,6 @@ public abstract class Analyzer<T extends Ambiguity> implements ParserListener {
 				mPreprocessor.execute(mAnnotation);
 
 			for (Lexel lexel : mAnnotation) {
-				if(lexel.getSentenceIndex()==-1) {
-					System.out.println(lexel.getID()+"\t"+lexel);
-				}
 				
 				extract(lexel);
 
