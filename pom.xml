@@ -13,19 +13,57 @@
 	</properties>
 	<dependencies>
 
-		<!-- https://mvnrepository.com/artifact/edu.stanford.nlp/stanford-corenlp -->
+
+
 		<dependency>
-			<groupId>edu.stanford.nlp</groupId>
-			<artifactId>stanford-corenlp</artifactId>
-			<version>3.8.0</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>edu.stanford.nlp</groupId>
-			<artifactId>stanford-corenlp</artifactId>
-			<version>3.8.0</version>
-			<classifier>models</classifier>
-		</dependency>
+	<groupId>edu.stanford.nlp</groupId>
+	<artifactId>stanford-corenlp</artifactId>
+	<version>3.9.1</version>
+	<exclusions>
+		<exclusion>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-queryparser</artifactId>
+		</exclusion>
+		<exclusion>  
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-analyzers-common</artifactId>
+		</exclusion>
+		<exclusion>  
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-queries</artifactId>
+		</exclusion>
+		<exclusion>  
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+		</exclusion>
+	</exclusions>
+</dependency>
+<dependency>
+	<groupId>edu.stanford.nlp</groupId>
+	<artifactId>stanford-corenlp</artifactId>
+	<version>3.9.1</version>
+	<classifier>models</classifier>
+</dependency>
+<dependency>
+	<groupId>org.apache.lucene</groupId>
+	<artifactId>lucene-queryparser</artifactId>
+	<version>7.2.0</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.lucene</groupId>
+	<artifactId>lucene-analyzers-common</artifactId>
+	<version>7.2.0</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.lucene</groupId>
+	<artifactId>lucene-queries</artifactId>
+	<version>7.2.0</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.lucene</groupId>
+	<artifactId>lucene-core</artifactId>
+	<version>7.2.0</version>
+</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/edu.mit/jwi -->
 			<dependency>

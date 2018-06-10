@@ -30,7 +30,7 @@ import it.si3p.supwsd.modules.preprocessing.Preprocessor;
  */
 public abstract class Analyzer<T extends Ambiguity> implements ParserListener {
 
-	private static final int EXECUTOR_SIZE = 16;
+	private static final int EXECUTOR_SIZE = Runtime.getRuntime().availableProcessors()-1;
 	private final Parser mParser;
 	private final Preprocessor mPreprocessor;
 	protected final Extractor mExtractor;
@@ -192,8 +192,14 @@ public abstract class Analyzer<T extends Ambiguity> implements ParserListener {
 			if (!mAnnotation.isAnnotated())
 				mPreprocessor.execute(mAnnotation);
 
-			for (Lexel lexel : mAnnotation)
+			for (Lexel lexel : mAnnotation) {
+				if(lexel.getSentenceIndex()==-1) {
+					System.out.println(lexel.getID()+"\t"+lexel);
+				}
+				
 				extract(lexel);
+
+			}
 
 			return this;
 		}

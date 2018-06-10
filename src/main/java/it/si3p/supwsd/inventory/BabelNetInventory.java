@@ -3,11 +3,13 @@ package it.si3p.supwsd.inventory;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+
+import com.babelscape.util.UniversalPOS;
+
 import it.si3p.supwsd.data.POSMap.TAG;
 import it.uniroma1.lcl.babelnet.BabelNet;
 import it.uniroma1.lcl.babelnet.BabelSynset;
 import it.uniroma1.lcl.babelnet.BabelSynsetComparator;
-import it.uniroma1.lcl.babelnet.data.BabelPOS;
 import it.uniroma1.lcl.jlt.util.Language;
 
 /**
@@ -32,43 +34,43 @@ class BabelNetInventory implements SenseInventory {
 		List<BabelSynset> synsets;
 
 		try {
-			synsets = mBabelNet.getSynsets(lemma, mLang,getPOS(pos));
+			synsets = mBabelNet.getSynsets(lemma, mLang, getPOS(pos));
 			Collections.sort(synsets, new BabelSynsetComparator(lemma));
 
 			if (!synsets.isEmpty())
-				sense = synsets.get(0).getId().getID();
-
-		} catch (IOException e) {
+				sense = synsets.get(0).getID().getID();
+			
+		} catch (Exception e) {
 	
 		}
 
 		return sense;
 	}
 
-	private BabelPOS getPOS(TAG pos) {
+	private UniversalPOS getPOS(TAG pos) {
 
-		BabelPOS POS;
+		UniversalPOS POS;
 
 		switch (pos) {
 
 		case n:
-			POS = BabelPOS.NOUN;
+			POS = UniversalPOS.NOUN;
 			break;
 			
 		case v:
-			POS = BabelPOS.VERB;
+			POS = UniversalPOS.VERB;
 			break;
 			
 		case a:
-			POS = BabelPOS.ADJECTIVE;
+			POS = UniversalPOS.ADJ;
 			break;
 			
 		case r:
-			POS = BabelPOS.ADVERB;
+			POS = UniversalPOS.ADV;
 			break;
 			
 		default:
-			POS = BabelPOS.NOUN;
+			POS = UniversalPOS.NOUN;
 			break;
 		}
 

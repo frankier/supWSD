@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import it.si3p.supwsd.data.Annotation;
 import it.si3p.supwsd.data.Lexel;
 
@@ -44,7 +45,6 @@ public class UDPipeXMLPreprocessor extends UDPipePreprocessor {
 		}
 
 		mIndex.put(annotation.getID(), indexes);
-
 		return annotation.getText().replaceAll(Annotation.ANNOTATION_TAG, "");
 	}
 
@@ -73,7 +73,28 @@ public class UDPipeXMLPreprocessor extends UDPipePreprocessor {
 
 		lines = (processed + "\n# sent_id").split("\n");
 
-		for (String line : lines) {
+		List<String> fixProcessed = new ArrayList<String>();
+		for(String line : lines) {
+			tokens = line.split("\t");
+			if(tokens.length>1) {
+				String multiWord[] = tokens[1].split(" ");
+				if(multiWord.length>1) {
+					String multiLemma[] = tokens[2].split(" ");
+					for(int k = 0;k<multiWord.length;k++) {
+						String fixSingleLine = tokens[0]+"\t"+multiWord[k]+"\t"+multiLemma[k]+"\t"+tokens[3];
+						fixProcessed.add(fixSingleLine);
+					}
+				}else
+					fixProcessed.add(line);
+				
+			}else {
+				fixProcessed.add(line);
+			}
+		}
+		
+		//lines = (processed + "\n# sent_id").split("\n");
+
+		for (String line : fixProcessed) {
 
 			if (line.startsWith("# sent_id")) {
 
@@ -94,7 +115,7 @@ public class UDPipeXMLPreprocessor extends UDPipePreprocessor {
 
 				i++;
 				j = 0;
-
+				skip = 0;
 			} else {
 
 				tokens = line.split("\t");
@@ -102,17 +123,15 @@ public class UDPipeXMLPreprocessor extends UDPipePreprocessor {
 				if (tokens.length > 1) {
 
 					while (!indexes.isEmpty() && temp.length() == indexes.get(0)) {
-
+						
 						if (lexel == null) {
-
 							lexel = lexels.next();
 							lexel.setIndexes(i, j);							
-						
 						} else {
 							lexel.setOffset(j - lexel.getTokenIndex() - 1);
 							lexel = null;										
 						}
-
+						
 						indexes.remove(0);
 					}
 
@@ -122,7 +141,7 @@ public class UDPipeXMLPreprocessor extends UDPipePreprocessor {
 					if (!position.contains("-")) {
 
 						wordList.add(word);
-						tagList.add(tokens[4]);
+						tagList.add(tokens[3]);
 						lemmaList.add(tokens[2]);
 						j++;
 
@@ -136,6 +155,7 @@ public class UDPipeXMLPreprocessor extends UDPipePreprocessor {
 				}
 			}
 		}
+
 
 		mIndex.remove(id);
 		annotation.annote(words.toArray(new String[words.size()][]), tags.toArray(new String[tags.size()][]),
