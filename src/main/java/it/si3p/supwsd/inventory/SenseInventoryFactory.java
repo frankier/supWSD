@@ -1,6 +1,9 @@
 package it.si3p.supwsd.inventory;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import it.si3p.supwsd.exceptions.PluginNotFound;
 
 /**
  * @author papandrea
@@ -22,7 +25,7 @@ public class SenseInventoryFactory {
 		return instance;
 	}
 
-	public SenseInventory getSenseInventory(SenseInventoryType senseInventoryType,String dict,String ISO) throws IOException {
+	public SenseInventory getSenseInventory(SenseInventoryType senseInventoryType,String dict,String ISO) throws IOException, PluginNotFound {
 
 		SenseInventory senseInventory = null;
 
@@ -31,8 +34,30 @@ public class SenseInventoryFactory {
 			switch (senseInventoryType) {
 
 			case BABELNET:
-
-				senseInventory = new BabelNetInventory(ISO);
+				Class<?> babelNetInventoryCls;
+				Constructor babelNetInventoryConstr;
+				try {
+					babelNetInventoryCls = Class.forName("it.si3p.supwsd.inventory.BabelNetInventory");
+				} catch (ClassNotFoundException e) {
+					throw new PluginNotFound("BabelNet");
+				}
+				Class[] argTypes = new Class[1];
+				argTypes[0] = String.class;
+				try {
+					babelNetInventoryConstr = babelNetInventoryCls.getDeclaredConstructor(argTypes);
+				} catch (NoSuchMethodException e) {
+					throw new PluginNotFound("BabelNet");
+				}
+				try {
+					senseInventory = (SenseInventory)babelNetInventoryConstr.newInstance(ISO);
+				} catch (InstantiationException e) {
+					throw new PluginNotFound("BabelNet");
+				} catch (IllegalAccessException e) {
+					throw new PluginNotFound("BabelNet");
+				} catch (InvocationTargetException e) {
+					throw new PluginNotFound("BabelNet");
+				}
+				
 				break;
 
 			default:
