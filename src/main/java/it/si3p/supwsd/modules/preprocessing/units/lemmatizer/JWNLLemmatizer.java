@@ -10,10 +10,9 @@ import java.util.regex.Pattern;
 import org.apache.commons.collections4.map.LRUMap;
 import it.si3p.supwsd.data.POSMap;
 import it.si3p.supwsd.modules.preprocessing.units.Unit;
-import net.didion.jwnl.JWNL;
-import net.didion.jwnl.JWNLException;
-import net.didion.jwnl.data.POS;
-import net.didion.jwnl.dictionary.Dictionary;
+import net.sf.extjwnl.JWNLException;
+import net.sf.extjwnl.data.POS;
+import net.sf.extjwnl.dictionary.Dictionary;
 
 /**
  * @author papandrea
@@ -28,7 +27,6 @@ class JWNLLemmatizer extends Unit implements Lemmatizer {
 	private final Pattern mMultiWordsPattern;
 	private final Pattern mEfficentPattern;
 	private Dictionary mDictionary;
-	private boolean mInit = true;
 
 	JWNLLemmatizer(String configFile) {
 
@@ -47,18 +45,11 @@ class JWNLLemmatizer extends Unit implements Lemmatizer {
 
 	@Override
 	public void load() throws IOException, JWNLException {
+		if(mDictionary == null){
+			InputStream inputStream = new FileInputStream(this.getDefaultModel());
 
-		mInit = !JWNL.isInitialized();
-
-		if (mInit) {
-
-			try(InputStream inputStream = new FileInputStream(this.getDefaultModel())) {
-				
-				JWNL.initialize(inputStream);
-			} 
+			mDictionary = Dictionary.getInstance(inputStream);
 		}
-
-		mDictionary = Dictionary.getInstance();
 	}
 
 	public String[] lemmatize(String[] words, String[] POSTags) {
@@ -210,12 +201,13 @@ class JWNLLemmatizer extends Unit implements Lemmatizer {
 
 		this.mCache.clear();
 
-		if (mDictionary != null)
-			mDictionary.close();
-
-		if (mInit) {
-			Dictionary.uninstall();
-			JWNL.shutdown();
+		if(mDictionary!=null) {
+			try {
+				mDictionary.close();
+			} catch (JWNLException ex) {
+				ex.printStackTrace();
+				System.exit(-1);
+			}
 		}
 	}
 
