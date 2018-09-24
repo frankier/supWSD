@@ -9,11 +9,11 @@ import java.util.regex.Pattern;
 import it.si3p.supwsd.data.Lexel;
 import it.si3p.supwsd.data.POSMap;
 import it.si3p.supwsd.data.POSMap.TAG;
-import net.didion.jwnl.JWNL;
-import net.didion.jwnl.JWNLException;
-import net.didion.jwnl.data.IndexWord;
-import net.didion.jwnl.data.POS;
-import net.didion.jwnl.dictionary.Dictionary;
+import net.sf.extjwnl.JWNLException;
+import net.sf.extjwnl.data.IndexWord;
+import net.sf.extjwnl.data.POS;
+import net.sf.extjwnl.dictionary.Dictionary;
+import net.sf.extjwnl.dictionary.MorphologicalProcessor;
 
 
 /**
@@ -26,7 +26,6 @@ class SensEvalMNS extends MNS{
 	private final Pattern mLegalPattern = Pattern.compile("^[a-z\\-_ \\.\\/']*$");
 	private final Pattern mMultiWordsPattern = Pattern.compile("[\\- _]");
 	private final Pattern mEfficentPattern = Pattern.compile("(^[\\- _]|[\\- _]{2}|[\\- _]$)");
-	private boolean mInit;
 	
 	SensEvalMNS(String file) throws IOException{
 		
@@ -37,21 +36,13 @@ class SensEvalMNS extends MNS{
 	public void load() throws Exception {
 		
 		if(this.isEnabled()){
-		
 			super.load();
 		}
 		
-		mInit = !JWNL.isInitialized();
-
-		if (mInit) {
-			
-			try(InputStream inputStream = new FileInputStream("resources/wndictionary/prop.xml");) {
-				
-				JWNL.initialize(inputStream);
-			}
+		if(mDictionary == null){
+			InputStream inputStream = new FileInputStream("resources/wndictionary/prop.xml");
+			mDictionary = Dictionary.getInstance(inputStream);
 		}
-
-		mDictionary = Dictionary.getInstance();
 	}
 	
 	@Override
@@ -235,12 +226,13 @@ class SensEvalMNS extends MNS{
 	@Override
 	public void unload() {
 
-		if(mDictionary!=null)
-		mDictionary.close();
-		
-		if(mInit){
-			Dictionary.uninstall();
-			JWNL.shutdown();
+		if(mDictionary!=null) {
+			try {
+				mDictionary.close();
+			} catch (JWNLException ex) {
+				ex.printStackTrace();
+				System.exit(-1);
+			}
 		}
 	}
 }
