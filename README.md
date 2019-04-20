@@ -1,17 +1,8 @@
 # supWSD
 supWSD is a supervised word sense disambiguation system.  The flexible framework of supWSD allows users to combine different preprocessing modules, to select features extractors and choose which classifier to use. SupWSD is very light and has very small memory requirements; it provides a simple xml file to configure the system.
 
-#### SUPWSD TOOLKIT
-<a target="_blank" href="https://supwsd-supwsdweb.1d35.starter-us-east-1.openshiftapps.com/supwsdweb/index.jsp">Toolkit</a>
-
-#### SUPWSD JAVA API
-<a target="_blank" href="https://supwsd-supwsdweb.1d35.starter-us-east-1.openshiftapps.com/supwsdweb/api-java.jsp">Java API</a>
-
-#### SUPWSD PYTHON API
-<a target="_blank" href="https://supwsd-supwsdweb.1d35.starter-us-east-1.openshiftapps.com/supwsdweb/api-python.jsp">Python API</a>
-
-#### DEMO INTERFACE
-<a target="_blank" href="https://supwsd-supwsdweb.1d35.starter-us-east-1.openshiftapps.com/supwsdweb/demo.jsp">Demo online</a>
+#### NEW SITE
+<a target="_blank" href="https://supwsd.net">SupWSD.net</a>
 
 #### Trained Models
 Models available for download, based on different features and corpora. All models use WordNet 3.0 as sense inventory.
