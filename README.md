@@ -4,26 +4,6 @@ supWSD is a supervised word sense disambiguation system.  The flexible framework
 ## NEW SITE
 <a target="_blank" href="https://supwsd.net">SupWSD.net</a>
 
-#### Trained Models
-Models available for download, based on different features and corpora. All models use WordNet 3.0 as sense inventory.
-The word embeddings used can be downloaded <a target="_blank" href="http://lcl.uniroma1.it/wsdeval/data/embeddings_skip_wackyen_400d.bin">here</a> [2.6GB].
-The vocab file can be downloaded <a target="_blank" href="https://drive.google.com/open?id=0B9II24hvksAKY2FMYW1FWVE4TWs">here</a>. [159MB]
-
-##### training data: SemCor with Stanford CoreNLP as preprocessor 
-
-* <a target="_blank" href="https://drive.google.com/file/d/0B-Ba2nFPJEUCUVA0NlBiY2lhZUE/view?usp=sharing">models</a> that include surrounding words, PoS tags of surroundings words, and local collocations as features.
-* <a target="_blank" href="https://drive.google.com/file/d/0B-Ba2nFPJEUCbWZRSkxld2ttdm8/view?usp=sharing">models</a> that include surrounding words, PoS tags of surroundings words, local collocations, and embeddings (integrated using exponential decay) as features.
-* <a target="_blank" href="https://drive.google.com/file/d/0B-Ba2nFPJEUCa1gzWHltQmZRaXc/view?usp=sharing">models</a> that include PoS tags of surroundings words, local collocations, and embeddings (integrated using exponential decay) as features.
-
-##### training data: SemCor+OMSTI with Stanford CoreNLP as preprocessor
-
-* <a target="_blank" href="https://drive.google.com/file/d/0B-Ba2nFPJEUCUmNqMTJzcWtYeWs/view?usp=sharing">models</a> that include surrounding words, PoS tags of surroundings words, and local collocations as features.
-* <a target="_blank" href="https://drive.google.com/file/d/0B-Ba2nFPJEUCaHdSc1k3Rnd6clk/view?usp=sharing">models</a> that include surrounding words, PoS tags of surroundings words, local collocations, and embeddings (integrated using exponential decay) as features.
-* <a target="_blank" href="https://drive.google.com/file/d/0B-Ba2nFPJEUCQTZuWHJyNWlCR1E/view?usp=sharing">models</a> that include PoS tags of surroundings words, local collocations, and embeddings (integrated using exponential decay) as features.
-
-___
-
-
 ## Files & Directories
 Name | Description
 ------------ | -------------
