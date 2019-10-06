@@ -5,6 +5,7 @@ import java.net.URL;
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
 import edu.mit.jwi.item.IIndexWord;
+import edu.mit.jwi.item.IWord;
 import edu.mit.jwi.item.POS;
 import it.si3p.supwsd.data.POSMap.TAG;
 
@@ -44,8 +45,12 @@ class WordNetInventory implements SenseInventory {
 			word = lemma.replace(MULTIWORD_SEPARATOR, SEPARATORS[i++]);
 			indexWord = mDictionary.getIndexWord(word, POS);
 
-			if (indexWord != null)
-				sense = mDictionary.getWord(indexWord.getWordIDs().get(0)).getSenseKey().toString();
+			if (indexWord != null) {
+				IWord dictWord = mDictionary.getWord(indexWord.getWordIDs().get(0));
+				if (dictWord != null) {
+					sense = dictWord.getSenseKey().toString();
+				}
+			}
 
 		} while (sense == null && multi && i < SEPARATORS.length);
 
